@@ -146,7 +146,31 @@ typedef NS_ENUM(NSInteger, ATLBubbleViewContentType) {
         self.bubbleImageView.hidden = NO;
         return;
     }
-    
+
+//    bleege.mdh1nc3p
+//    pk.eyJ1IjoiYmxlZWdlIiwiYSI6ImZjNDZkYTZkODc0YTU3MWM0NTE0OTlhZGIxZjgxOTYzIn0.qn--a2oJczUF_0tcn90SOw
+
+    NSString *url = [NSString stringWithFormat:@"http://api.tiles.mapbox.com/v4/%@/%f,%f,%d/200x200.png?access_token=%@", @"bleege.mdh1nc3p", location.longitude, location.latitude, 15, @"pk.eyJ1IjoiYmxlZWdlIiwiYSI6ImZjNDZkYTZkODc0YTU3MWM0NTE0OTlhZGIxZjgxOTYzIn0.qn--a2oJczUF_0tcn90SOw"];
+
+    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
+    if (image == nil) {
+        self.bubbleImageView.image = [UIImage imageNamed:@"LayerUIKitResource.bundle/warning-black"];
+        self.bubbleImageView.contentMode = UIViewContentModeCenter;
+        return;
+    }
+
+    self.bubbleImageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.bubbleImageView.image = image;
+    self.locationShown = location;
+    [[[self class] sharedCache] setObject:self.bubbleImageView.image forKey:cachedImageIdentifier];
+
+    // Animate into view.
+    self.bubbleImageView.alpha = 0.0;
+    [UIView animateWithDuration:0.2 animations:^{
+        self.bubbleImageView.alpha = 1.0;
+    }];
+
+    /*
     self.snapshotter = [self snapshotterForLocation:location];
     [self.snapshotter startWithCompletionHandler:^(MKMapSnapshot *snapshot, NSError *error) {
         self.bubbleImageView.hidden = NO;
@@ -166,6 +190,7 @@ typedef NS_ENUM(NSInteger, ATLBubbleViewContentType) {
             self.bubbleImageView.alpha = 1.0;
         }];
     }];
+     */
 }
 
 - (MKMapSnapshotter *)snapshotterForLocation:(CLLocationCoordinate2D)location

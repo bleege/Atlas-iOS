@@ -265,6 +265,27 @@ UIImage *ATLPinPhotoForSnapshot(MKMapSnapshot *snapshot, CLLocationCoordinate2D 
     return finalImage;
 }
 
+UIImage *ATLPinPhotoForImage(UIImage *imageToLoad, CLLocationCoordinate2D location)
+{
+    // Create a pin image.
+    MKAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:nil reuseIdentifier:@""];
+    UIImage *pinImage = pin.image;
+
+    // Draw the image.
+    UIImage *image = imageToLoad;
+    UIGraphicsBeginImageContextWithOptions(image.size, YES, image.scale);
+    [image drawAtPoint:CGPointMake(0, 0)];
+
+    // Draw the pin.
+//    CGPoint point = [snapshot pointForCoordinate:location];
+//    [pinImage drawAtPoint:CGPointMake(point.x, point.y - pinImage.size.height)];
+
+    UIImage *finalImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return finalImage;
+}
+
 NSArray *ATLLinkResultsForText(NSString *text)
 {
     if (!text) return nil;
