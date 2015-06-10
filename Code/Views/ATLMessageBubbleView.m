@@ -147,10 +147,9 @@ typedef NS_ENUM(NSInteger, ATLBubbleViewContentType) {
         return;
     }
 
-//    bleege.mdh1nc3p
-//    pk.eyJ1IjoiYmxlZWdlIiwiYSI6ImZjNDZkYTZkODc0YTU3MWM0NTE0OTlhZGIxZjgxOTYzIn0.qn--a2oJczUF_0tcn90SOw
+    NSString *marker = [NSString stringWithFormat:@"pin-l-marker+ff0000(%f,%f)", location.longitude, location.latitude];
 
-    NSString *url = [NSString stringWithFormat:@"http://api.tiles.mapbox.com/v4/%@/%f,%f,%d/200x200.png?access_token=%@", @"bleege.mdh1nc3p", location.longitude, location.latitude, 15, @"pk.eyJ1IjoiYmxlZWdlIiwiYSI6ImZjNDZkYTZkODc0YTU3MWM0NTE0OTlhZGIxZjgxOTYzIn0.qn--a2oJczUF_0tcn90SOw"];
+    NSString *url = [NSString stringWithFormat:@"http://api.tiles.mapbox.com/v4/%@/%@/%f,%f,%d/200x200.png?access_token=%@", @"bleege.mdh1nc3p", marker, location.longitude, location.latitude, 15, @"pk.eyJ1IjoiYmxlZWdlIiwiYSI6ImZjNDZkYTZkODc0YTU3MWM0NTE0OTlhZGIxZjgxOTYzIn0.qn--a2oJczUF_0tcn90SOw"];
 
     UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:url]]];
     if (image == nil) {
